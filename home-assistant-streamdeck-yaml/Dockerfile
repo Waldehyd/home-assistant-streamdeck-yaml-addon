@@ -32,7 +32,6 @@ RUN apk del .build-deps 2>/dev/null || true \
         # Build dependencies
         gcc \
         python3-dev \
-        musl-dev \
         libusb-dev \
         hidapi-dev \
         libffi-dev \

@@ -11,40 +11,41 @@ ARG VERSION=2025.12.16
 
 # Install runtime dependencies and build dependencies
 # hadolint ignore=DL3018,DL3003
-RUN apk --no-cache add \
-    # Python
-    python3 \
-    py3-pip \
-    # Runtime dependencies
-    libusb \
-    hidapi \
-    libffi \
-    cairo \
-    cairo-gobject \
-    libxml2 \
-    libxslt \
-    libjpeg-turbo \
-    zlib \
-    freetype \
-    libpng \
-    # Build dependencies (will be removed after pip install)
+RUN apk del .build-deps 2>/dev/null || true \
+    && apk --no-cache add \
+        # Python
+        python3 \
+        py3-pip \
+        # Runtime dependencies
+        libusb \
+        hidapi \
+        libffi \
+        cairo \
+        cairo-gobject \
+        libxml2 \
+        libxslt \
+        libjpeg-turbo \
+        zlib \
+        freetype \
+        libpng \
     && apk add --no-cache --virtual .build-deps \
-    gcc \
-    python3-dev \
-    musl-dev \
-    libusb-dev \
-    hidapi-dev \
-    libffi-dev \
-    cairo-dev \
-    libxml2-dev \
-    libxslt-dev \
-    jpeg-dev \
-    zlib-dev \
-    freetype-dev \
-    libpng-dev \
-    # Download dependencies
-    unzip \
-    wget \
+        # Build dependencies
+        gcc \
+        python3-dev \
+        musl-dev \
+        libusb-dev \
+        hidapi-dev \
+        libffi-dev \
+        cairo-dev \
+        libxml2-dev \
+        libxslt-dev \
+        jpeg-dev \
+        zlib-dev \
+        freetype-dev \
+        libpng-dev \
+        # Download tools
+        unzip \
+        wget \
     # Download and install the application
     && echo "Downloading version ${VERSION}..." \
     && wget -nv https://github.com/basnijholt/home-assistant-streamdeck-yaml/archive/refs/tags/v${VERSION}.zip -O /tmp/v${VERSION}.zip \
